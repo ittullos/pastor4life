@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 10,
     marginVertical: 6,
-    opacity: 0.7,
+    opacity: 0.9,
   },
   input: {
     width: '75%',
