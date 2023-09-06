@@ -1,13 +1,15 @@
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import Logo from '../../../assets/images/p4l_logo.png'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const SignInScreen = () => {
-  const [email, setEmail]       = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail]           = useState('')
+  const [password, setPassword]     = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
 
   const onSignInPressed = () => {
     console.warn("Sign In")
@@ -58,6 +60,30 @@ const SignInScreen = () => {
           secureTextEntry
           icon='lock'
         />
+        <Pressable 
+          style={styles.rememberMeContainer}
+          onPress={() => {
+            setRememberMe(!rememberMe)
+          }}
+        >
+          { (rememberMe) ? (
+              <MaterialCommunityIcons 
+                name='checkbox-outline' 
+                size={15} 
+                color='white'
+                style={styles.rememberMeIcon}
+              /> 
+            ) : (
+              <MaterialCommunityIcons 
+                name='checkbox-blank-outline'
+                size={15} 
+                color='white'
+                fillColor='white'
+                style={styles.rememberMeIcon}
+              /> 
+            )}
+          <Text style={{color: 'white', fontSize: 12}}>Remember Me</Text>
+        </Pressable>
         <CustomButton 
           text='Sign In' 
           onPress={onSignInPressed}
@@ -107,6 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 0,
     maxHeight: '120%',
+    justifyContent: 'center',
   },
   logo: {
     width: '85%',
@@ -122,6 +149,21 @@ const styles = StyleSheet.create({
     height: '100%',
 
     width: '100%',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
+  rememberMeIcon: {
+    paddingRight: 5,
+  },
+  rememberMeContainer: {
+    flexDirection: 'row', 
+    justifyContent: 'flex-start', 
+    width: '70%',
   }
 })
 

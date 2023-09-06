@@ -26,19 +26,14 @@ const CustomButton = ({ onPress, text, type, bgColor, fgColor, icon }) => {
           style={[
             styles.text, 
             styles[`text_${type}`],
-            fgColor ? {color: fgColor} : {}
+            fgColor ? {color: fgColor} : {},
+            (text === 'Forgot Password?') ? {paddingLeft: '25%'} : {}
           ]}>
             {text}
         </Text>
       </View>
       { icon ? 
         <View style={{ paddingright: 10, width: 22 }}>
-          {/* <MaterialCommunityIcons 
-            name={icon} 
-            size={22} 
-            color={fgColor}
-            style={styles.buttonIcon}
-          />  */}
         </View> : null }
     </Pressable>
   )
@@ -58,17 +53,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#071448',
   },
   container_OPAQUE: {
-
+    height: 20,
+    textAlign: 'center',
+    // borderColor: 'black',
+    // borderWidth: 2,
   },
   text: {
     fontWeight: 'bold',
-    alignContent: 'center',
   },
   text_NAVY: {
     color: 'white',
   },
   text_OPAQUE: {
     color: 'white',
+    paddingBottom: 20,
   },
 })
 
