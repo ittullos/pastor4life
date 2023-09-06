@@ -47,13 +47,16 @@ const SignInScreen = () => {
         <CustomInput 
           placeholder='Email'
           value={email}
-          setValue={setEmail} 
+          setValue={setEmail}
+          secureTextEntry={false}
+          icon='email'
         />
         <CustomInput 
           placeholder='Password'
           value={password}
           setValue={setPassword}
           secureTextEntry
+          icon='lock'
         />
         <CustomButton 
           text='Sign In' 
@@ -71,6 +74,7 @@ const SignInScreen = () => {
           type='NAVY' 
           bgColor='#E7EAF4'
           fgColor='#4765A9'
+          icon='facebook'
         />
         <CustomButton 
           text='Sign In with Google' 
@@ -78,6 +82,7 @@ const SignInScreen = () => {
           type='NAVY' 
           bgColor='#FAE9EA'
           fgColor='#DD4D44'
+          icon='google'
         />
         <CustomButton 
           text='Sign In with Apple' 
@@ -85,6 +90,7 @@ const SignInScreen = () => {
           type='NAVY' 
           bgColor='#E3E3E3'
           fgColor='#363636'
+          icon='apple'
         />
         <CustomButton 
           text="Don't have an account? Create one" 
