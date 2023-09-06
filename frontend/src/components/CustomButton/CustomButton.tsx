@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   text_OPAQUE: {
     color: 'white',
     paddingBottom: 20,
-  },
+  }
 })
 
 export default CustomButton
