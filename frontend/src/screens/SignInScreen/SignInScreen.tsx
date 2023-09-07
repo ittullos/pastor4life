@@ -4,6 +4,7 @@ import Logo from '../../../assets/images/p4l_logo.png'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
+import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 
@@ -78,17 +79,19 @@ const SignInScreen = () => {
           onPress={onSignInPressed}
           type='NAVY' 
         />
-        <CustomButton 
-          text='Forgot Password?' 
-          onPress={onForgotPasswordPressed} 
-          type='OPAQUE'
-        />
+        <View style={{ marginVertical: 5 }}>
+          <CustomButtonClear 
+            text='Forgot Password?' 
+            onPress={onForgotPasswordPressed}
+          />
+        </View>
         <SocialSignInButtons />
-        <CustomButton 
-          text="Don't have an account? Create one" 
-          onPress={onSignUpPressed} 
-          type='OPAQUE'
-        />
+        <View style={{ marginVertical: 5 }}>
+          <CustomButtonClear 
+            text="Don't have an account? Create one" 
+            onPress={onSignUpPressed} 
+          />
+        </View>
       </LinearGradient>
     </View>
   )

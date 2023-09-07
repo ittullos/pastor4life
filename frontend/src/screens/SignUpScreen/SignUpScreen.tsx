@@ -5,6 +5,7 @@ import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
+import CustomButtonClear from '../../components/CustomButtonClear'
 
 const SignUpScreen = () => {
   const [email, setEmail]                     = useState('')
@@ -87,18 +88,19 @@ const SignUpScreen = () => {
           type='NAVY'
         />
         <View style={styles.termsContainer}>
-        <Text style={styles.text}>
-          By registering, you confirm that you accept our 
-          <Text style={styles.link} onPress={onTermsOfUsePressed}> Terms of Use</Text> and 
-          <Text style={styles.link} onPress={onPrivacyPressed}> Privacy Policy</Text>
-        </Text>
+          <Text style={styles.text}>
+            By registering, you confirm that you accept our 
+            <Text style={styles.link} onPress={onTermsOfUsePressed}> Terms of Use</Text> and 
+            <Text style={styles.link} onPress={onPrivacyPressed}> Privacy Policy</Text>
+          </Text>
         </View>
         <SocialSignInButtons />
-        <CustomButton 
-          text="Already have an account? Sign In" 
-          onPress={onSignInPressed} 
-          type='OPAQUE'
-        />
+        <View style={{marginVertical: 5}}>
+          <CustomButtonClear 
+            text="Already have an account? Sign In" 
+            onPress={onSignInPressed} 
+          />
+        </View>
       </LinearGradient>
     </View>
   )

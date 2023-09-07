@@ -27,7 +27,6 @@ const CustomButton = ({ onPress, text, type, bgColor, fgColor, icon }) => {
             styles.text, 
             styles[`text_${type}`],
             fgColor ? {color: fgColor} : {},
-            (text === 'Forgot Password?') ? {paddingLeft: '25%'} : {}
           ]}>
             {text}
         </Text>
@@ -55,8 +54,16 @@ const styles = StyleSheet.create({
   container_OPAQUE: {
     height: 20,
     textAlign: 'center',
+    alignContent: 'center',
     // borderColor: 'black',
     // borderWidth: 2,
+  },
+  container_NAVY_INVERT: {
+    borderColor: '#071448',
+    borderWidth: 2,
+    backgroundColor: 'white',
+    width: '80%',
+    justifyContent: 'center',
   },
   text: {
     fontWeight: 'bold',
@@ -67,7 +74,11 @@ const styles = StyleSheet.create({
   text_OPAQUE: {
     color: 'white',
     paddingBottom: 20,
-  }
+    textAlign: 'center'
+  },
+  text_NAVY_INVERTED: {
+    color: '#071448',
+  },
 })
 
 export default CustomButton
