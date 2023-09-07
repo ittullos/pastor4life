@@ -6,17 +6,19 @@ import CustomButton from '../../components/CustomButton'
 import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/native'
 
 const NewPasswordScreen = () => {
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const navigation = useNavigation()
 
   const onSignInPressed = () => {
-    console.warn("Sign In")
+    navigation.navigate('SignIn')
   }
 
-  const onSendPressed = () => {
-    console.warn("Confirm")
+  const onSubmitPressed = () => {
+    navigation.navigate('Home')
   }
 
   return (
@@ -42,8 +44,8 @@ const NewPasswordScreen = () => {
           icon='lock'
         />
         <CustomButton 
-          text='Send' 
-          onPress={onSendPressed}
+          text='Submit' 
+          onPress={onSubmitPressed}
           type='NAVY'
         />
         <View style={{marginVertical: 15}}>

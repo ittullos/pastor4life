@@ -7,22 +7,26 @@ import CustomButton from '../../components/CustomButton'
 import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/native'
 
 const SignInScreen = () => {
   const [email, setEmail]           = useState('')
   const [password, setPassword]     = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  const navigation = useNavigation()
 
   const onSignInPressed = () => {
-    console.warn("Sign In")
+    // validate user
+
+    navigation.navigate('Home')
   }
 
   const onSignUpPressed = () => {
-    console.warn("Sign Up")
+    navigation.navigate('SignUp')
   }
 
   const onForgotPasswordPressed = () => {
-    console.warn("Forgot Password")
+    navigation.navigate('ForgotPassword')
   }
 
   return (

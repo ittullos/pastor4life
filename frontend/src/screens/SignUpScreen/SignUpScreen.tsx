@@ -6,19 +6,23 @@ import CustomButton from '../../components/CustomButton'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 import CustomButtonClear from '../../components/CustomButtonClear'
+import { useNavigation } from '@react-navigation/native'
 
 const SignUpScreen = () => {
   const [email, setEmail]                     = useState('')
   const [password, setPassword]               = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [rememberMe, setRememberMe]           = useState(false)
+  const navigation = useNavigation()
 
   const onSignUpPressed = () => {
-    console.warn("Sign Up")
+    navigation.navigate('ConfirmEmail')
+
   }
 
   const onSignInPressed = () => {
-    console.warn("Sign In")
+    navigation.navigate('SignIn')
+
   }
 
   const onTermsOfUsePressed = () => {

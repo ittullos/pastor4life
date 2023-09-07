@@ -6,12 +6,15 @@ import CustomButton from '../../components/CustomButton'
 import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
+import { useNavigation } from '@react-navigation/native'
 
 const ConfirmEmailScreen = () => {
   const [code, setCode] = useState('')
+  const navigation = useNavigation()
+
 
   const onSignInPressed = () => {
-    console.warn("Sign In")
+    navigation.navigate('SignIn')
   }
 
   const onResendCodePressed = () => {
@@ -19,7 +22,7 @@ const ConfirmEmailScreen = () => {
   }
 
   const onConfirmPressed = () => {
-    console.warn("Confirm")
+    navigation.navigate('Home')
   }
 
   return (
