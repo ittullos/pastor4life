@@ -99,11 +99,13 @@ const SignUpScreen = () => {
           </Text>
         </View>
         <SocialSignInButtons />
-        <View style={{marginVertical: 5}}>
-          <CustomButtonClear 
-            text="Already have an account? Sign In" 
-            onPress={onSignInPressed} 
-          />
+
+        <View style={{ marginVertical: 13 }}>
+          <Pressable onPress={onSignInPressed}>
+            <Text style={{fontWeight: 'bold', color: 'white'}} >
+              Already have an account? Sign In
+            </Text>
+          </Pressable>
         </View>
       </LinearGradient>
     </View>

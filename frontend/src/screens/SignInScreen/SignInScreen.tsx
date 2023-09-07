@@ -83,18 +83,26 @@ const SignInScreen = () => {
           onPress={onSignInPressed}
           type='NAVY' 
         />
-        <View style={{ marginVertical: 5 }}>
-          <CustomButtonClear 
-            text='Forgot Password?' 
-            onPress={onForgotPasswordPressed}
-          />
+        <View style={{ marginVertical: 13 }}>
+          <Pressable onPress={onForgotPasswordPressed}>
+            <Text style={{fontWeight: 'bold', color: 'white'}} >
+              Forgot Password?
+            </Text>
+          </Pressable>
         </View>
         <SocialSignInButtons />
-        <View style={{ marginVertical: 5 }}>
+        {/* <View style={{ marginVertical: 5}}>
           <CustomButtonClear 
             text="Don't have an account? Create one" 
             onPress={onSignUpPressed} 
           />
+        </View> */}
+        <View style={{ marginVertical: 13 }}>
+          <Pressable onPress={onSignUpPressed}>
+            <Text style={{fontWeight: 'bold', color: 'white'}} >
+              Don't have an account? Create one
+            </Text>
+          </Pressable>
         </View>
       </LinearGradient>
     </View>
@@ -137,7 +145,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'flex-start', 
     width: '70%',
-  }
+  },
+  text: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
 })
 
 export default SignInScreen

@@ -40,11 +40,12 @@ const ForgotPasswordScreen = () => {
           onPress={onSendPressed}
           type='NAVY'
         />
-        <View style={{marginVertical: 15}}>
-          <CustomButtonClear 
-            text="Back to Sign In" 
-            onPress={onSignInPressed} 
-          />
+        <View style={{ marginVertical: 15 }}>
+          <Pressable onPress={onSignInPressed}>
+            <Text style={{fontWeight: 'bold', color: 'white'}} >
+              Back to Sign In
+            </Text>
+          </Pressable>
         </View>
       </LinearGradient>
     </View>
