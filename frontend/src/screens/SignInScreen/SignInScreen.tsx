@@ -54,30 +54,6 @@ const SignInScreen = () => {
           secureTextEntry
           icon='lock'
         />
-        {/* <Pressable 
-          style={styles.rememberMeContainer}
-          onPress={() => {
-            setRememberMe(!rememberMe)
-          }}
-        >
-          { (rememberMe) ? (
-              <MaterialCommunityIcons 
-                name='checkbox-outline' 
-                size={15} 
-                color='white'
-                style={styles.rememberMeIcon}
-              /> 
-            ) : (
-              <MaterialCommunityIcons 
-                name='checkbox-blank-outline'
-                size={15} 
-                color='white'
-                fillColor='white'
-                style={styles.rememberMeIcon}
-              /> 
-            )}
-          <Text style={{color: 'white', fontSize: 12}}>Remember Me</Text>
-        </Pressable> */}
         <CustomButton 
           text='Sign In' 
           onPress={onSignInPressed}
@@ -91,12 +67,6 @@ const SignInScreen = () => {
           </Pressable>
         </View>
         <SocialSignInButtons />
-        {/* <View style={{ marginVertical: 5}}>
-          <CustomButtonClear 
-            text="Don't have an account? Create one" 
-            onPress={onSignUpPressed} 
-          />
-        </View> */}
         <View style={{ marginVertical: 13 }}>
           <Pressable onPress={onSignUpPressed}>
             <Text style={{fontWeight: 'bold', color: 'white'}} >

@@ -12,7 +12,6 @@ const SignUpScreen = () => {
   const [email, setEmail]                     = useState('')
   const [password, setPassword]               = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [rememberMe, setRememberMe]           = useState(false)
   const navigation = useNavigation()
 
   const onSignUpPressed = () => {
@@ -62,30 +61,6 @@ const SignUpScreen = () => {
           secureTextEntry
           icon='lock'
         />
-        {/* <Pressable 
-          style={styles.rememberMeContainer}
-          onPress={() => {
-            setRememberMe(!rememberMe)
-          }}
-        >
-          { (rememberMe) ? (
-              <MaterialCommunityIcons 
-                name='checkbox-outline' 
-                size={15} 
-                color='white'
-                style={styles.rememberMeIcon}
-              /> 
-            ) : (
-              <MaterialCommunityIcons 
-                name='checkbox-blank-outline'
-                size={15} 
-                color='white'
-                fillColor='white'
-                style={styles.rememberMeIcon}
-              /> 
-            )}
-          <Text style={{color: 'white', fontSize: 12}}>Remember Me</Text>
-        </Pressable> */}
         <CustomButton 
           text='Register' 
           onPress={onSignUpPressed}
