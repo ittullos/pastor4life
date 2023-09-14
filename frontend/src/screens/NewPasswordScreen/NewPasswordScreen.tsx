@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -14,6 +14,7 @@ import { AuthContext } from '../../navigation'
 const NewPasswordScreen = () => {
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigation = useNavigation()
   const route = useRoute()
   const { setUser } = useContext(AuthContext)
@@ -24,6 +25,11 @@ const NewPasswordScreen = () => {
   }
 
   const onSubmitPressed = async () => {
+    if (loading) {
+      return
+    }
+
+    setLoading(true)
     try {
       await Auth.forgotPasswordSubmit(route?.params?.email, code, newPassword)
       const user = await Auth.signIn(route?.params?.email, newPassword)
@@ -31,6 +37,7 @@ const NewPasswordScreen = () => {
     } catch (e) {
       Alert.alert("Oops", e.message)
     }
+    setLoading(false)
   }
 
   return (
@@ -55,11 +62,13 @@ const NewPasswordScreen = () => {
           secureTextEntry={false}
           icon='lock'
         />
-        <CustomButton 
-          text='Submit' 
-          onPress={onSubmitPressed}
-          type='NAVY'
-        />
+        {loading ? <ActivityIndicator color='white' style={{ marginVertical: 18 }} /> :
+          <CustomButton 
+            text={loading ? 'Loading...' : 'Submit'} 
+            onPress={onSubmitPressed}
+            type='NAVY'
+          />
+        }
         <View style={{ marginVertical: 15 }}>
           <Pressable onPress={onSignInPressed}>
             <Text style={{fontWeight: 'bold', color: 'white'}} >

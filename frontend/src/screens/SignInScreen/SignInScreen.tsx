@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native'
 import React, { useState, useContext } from 'react'
 import Logo from '../../../assets/images/p4l_logo.png'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -74,11 +74,13 @@ const SignInScreen = () => {
           secureTextEntry
           icon='lock'
         />
-        <CustomButton 
-          text={loading ? 'Loading...' : 'Sign In'} 
-          onPress={handleSubmit(onSignInPressed)}
-          type='NAVY' 
-        />
+          {loading ? <ActivityIndicator color='white' style={{ marginVertical: 18 }} /> :
+            <CustomButton 
+              text={loading ? 'Loading...' : 'Sign In'} 
+              onPress={handleSubmit(onSignInPressed)}
+              type='NAVY' 
+            />
+          }
         <View style={{ marginVertical: 13 }}>
           <Pressable onPress={onForgotPasswordPressed}>
             <Text style={{fontWeight: 'bold', color: 'white'}} >

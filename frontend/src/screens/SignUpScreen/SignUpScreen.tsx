@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -15,9 +15,14 @@ const SignUpScreen = () => {
   const [email, setEmail]                     = useState('')
   const [password, setPassword]               = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigation = useNavigation()
 
   const onSignUpPressed = async () => {
+    if (loading) {
+      return
+    }
+    setLoading(true)
     if (password === confirmPassword) {
       try {
         await Auth.signUp(email, password)
@@ -29,6 +34,7 @@ const SignUpScreen = () => {
     } else {
       Alert.alert('Oops', 'Passwords do not match')
     }
+    setLoading(false)
   }
 
   const onSignInPressed = () => {
@@ -73,11 +79,13 @@ const SignUpScreen = () => {
           secureTextEntry
           icon='lock'
         />
-        <CustomButton 
-          text='Register' 
-          onPress={onSignUpPressed}
-          type='NAVY'
-        />
+        {loading ? <ActivityIndicator color='white' style={{ marginVertical: 18 }} /> :
+          <CustomButton 
+            text={loading ? 'Loading...' : 'Register'}
+            onPress={onSignUpPressed}
+            type='NAVY'
+          />
+        }
         <View style={styles.termsContainer}>
           <Text style={styles.text}>
             By registering, you confirm that you accept our 

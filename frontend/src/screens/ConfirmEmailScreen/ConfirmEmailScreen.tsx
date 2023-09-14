@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -14,6 +14,7 @@ import { AuthContext } from '../../navigation'
 
 const ConfirmEmailScreen = () => {
   const [code, setCode] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigation = useNavigation()
   const route = useRoute()
   const { setUser } = useContext(AuthContext)
@@ -33,6 +34,11 @@ const ConfirmEmailScreen = () => {
   }
 
   const onConfirmPressed = async () => {
+    if (loading) {
+      return
+    }
+
+    setLoading(true)
     try {
       await Auth.confirmSignUp(route?.params?.email, code)
       const user = await Auth.signIn(route?.params?.email, route?.params?.password)
@@ -40,7 +46,7 @@ const ConfirmEmailScreen = () => {
     } catch (e) {
       Alert.alert("Oops", e.message)
     }
-
+    setLoading(false)
   }
 
   return (
@@ -58,11 +64,13 @@ const ConfirmEmailScreen = () => {
           secureTextEntry={false}
           icon='email-check'
         />
-        <CustomButton 
-          text='Confirm' 
-          onPress={onConfirmPressed}
-          type='NAVY'
-        />
+        {loading ? <ActivityIndicator color='white' style={{ marginVertical: 18 }} /> :
+          <CustomButton 
+            text={loading ? 'Loading...' : 'Confirm'}
+            onPress={onConfirmPressed}
+            type='NAVY'
+          />
+        }
         <CustomButton
           text="Resend Code" 
           onPress={onResendCodePressed} 

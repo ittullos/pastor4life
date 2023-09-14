@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -12,6 +12,7 @@ import { useRoute } from '@react-navigation/native'
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigation = useNavigation()
 
   const onSignInPressed = () => {
@@ -19,12 +20,17 @@ const ForgotPasswordScreen = () => {
   }
 
   const onSendPressed = async () => {
+    if (loading) {
+      return
+    }
+    setLoading(true)
     try {
       await Auth.forgotPassword(email)
       navigation.navigate('NewPassword', {email})
     } catch (e) {
       Alert.alert("Oops", e.message)
     }
+    setLoading(false)
   }
 
   return (
@@ -42,11 +48,13 @@ const ForgotPasswordScreen = () => {
           secureTextEntry={false}
           icon='email'
         />
-        <CustomButton 
-          text='Send' 
-          onPress={onSendPressed}
-          type='NAVY'
-        />
+          {loading ? <ActivityIndicator color='white' style={{ marginVertical: 18 }} /> : 
+              <CustomButton 
+              text={loading ? 'Loading...' : 'Send'} 
+              onPress={onSendPressed}
+              type='NAVY'
+            />
+          }
         <View style={{ marginVertical: 15 }}>
           <Pressable onPress={onSignInPressed}>
             <Text style={{fontWeight: 'bold', color: 'white'}} >
