@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -7,6 +7,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 import CustomButtonClear from '../../components/CustomButtonClear'
 import { useNavigation } from '@react-navigation/native'
+import { useForm, Controller } from 'react-hook-form'
+import { Auth } from 'aws-amplify'
+
 
 const SignUpScreen = () => {
   const [email, setEmail]                     = useState('')
@@ -14,9 +17,18 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const navigation = useNavigation()
 
-  const onSignUpPressed = () => {
-    navigation.navigate('ConfirmEmail')
+  const onSignUpPressed = async () => {
+    if (password === confirmPassword) {
+      try {
+        await Auth.signUp(email, password)
+        navigation.navigate('ConfirmEmail', {email, password})
 
+      } catch (e) {
+        Alert.alert('Oops', e.message)
+      }
+    } else {
+      Alert.alert('Oops', 'Passwords do not match')
+    }
   }
 
   const onSignInPressed = () => {

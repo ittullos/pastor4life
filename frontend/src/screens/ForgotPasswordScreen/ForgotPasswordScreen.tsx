@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -7,6 +7,8 @@ import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
+import { Auth } from 'aws-amplify'
+import { useRoute } from '@react-navigation/native'
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('')
@@ -16,8 +18,13 @@ const ForgotPasswordScreen = () => {
     navigation.navigate('SignIn')
   }
 
-  const onSendPressed = () => {
-    navigation.navigate('NewPassword')
+  const onSendPressed = async () => {
+    try {
+      await Auth.forgotPassword(email)
+      navigation.navigate('NewPassword', {email})
+    } catch (e) {
+      Alert.alert("Oops", e.message)
+    }
   }
 
   return (

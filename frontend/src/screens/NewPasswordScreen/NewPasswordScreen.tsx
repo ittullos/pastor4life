@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import React, { useState, useContext } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
@@ -7,18 +7,30 @@ import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
+import { Auth } from 'aws-amplify'
+import { useRoute } from '@react-navigation/native'
+import { AuthContext } from '../../navigation'
 
 const NewPasswordScreen = () => {
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const navigation = useNavigation()
+  const route = useRoute()
+  const { setUser } = useContext(AuthContext)
+
 
   const onSignInPressed = () => {
     navigation.navigate('SignIn')
   }
 
-  const onSubmitPressed = () => {
-    navigation.navigate('Home')
+  const onSubmitPressed = async () => {
+    try {
+      await Auth.forgotPasswordSubmit(route?.params?.email, code, newPassword)
+      const user = await Auth.signIn(route?.params?.email, newPassword)
+      setUser(user)
+    } catch (e) {
+      Alert.alert("Oops", e.message)
+    }
   }
 
   return (

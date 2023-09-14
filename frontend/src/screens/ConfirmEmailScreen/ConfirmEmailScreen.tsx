@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import React, { useState, useContext } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
@@ -7,22 +7,40 @@ import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
+import { useForm, Controller } from 'react-hook-form'
+import { Auth } from 'aws-amplify'
+import { useRoute } from '@react-navigation/native'
+import { AuthContext } from '../../navigation'
 
 const ConfirmEmailScreen = () => {
   const [code, setCode] = useState('')
   const navigation = useNavigation()
+  const route = useRoute()
+  const { setUser } = useContext(AuthContext)
 
 
   const onSignInPressed = () => {
     navigation.navigate('SignIn')
   }
 
-  const onResendCodePressed = () => {
-    console.warn("Resend Code")
+  const onResendCodePressed = async () => {
+    try {
+      await Auth.resendSignUp(route?.params?.email)
+      Alert.alert('Success', 'Code was resent to your email')
+    } catch (e) {
+      Alert.alert("Oops", e.message)
+    }
   }
 
-  const onConfirmPressed = () => {
-    navigation.navigate('Home')
+  const onConfirmPressed = async () => {
+    try {
+      await Auth.confirmSignUp(route?.params?.email, code)
+      const user = await Auth.signIn(route?.params?.email, route?.params?.password)
+      setUser(user)
+    } catch (e) {
+      Alert.alert("Oops", e.message)
+    }
+
   }
 
   return (

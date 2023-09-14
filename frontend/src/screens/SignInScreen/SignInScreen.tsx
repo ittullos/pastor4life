@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Image, StyleSheet, ScrollView, Pressable, Alert } from 'react-native'
+import React, { useState, useContext } from 'react'
 import Logo from '../../../assets/images/p4l_logo.png'
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomInput from '../../components/CustomInput'
@@ -8,17 +8,37 @@ import CustomButtonClear from '../../components/CustomButtonClear'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SocialSignInButtons from '../../components/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
+import { Auth } from 'aws-amplify'
+import { useForm, Controller } from 'react-hook-form'
+import { AuthContext } from '../../navigation'
 
 const SignInScreen = () => {
   const [email, setEmail]           = useState('')
   const [password, setPassword]     = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  const [loading, setLoading] = useState(false)
   const navigation = useNavigation()
+  const { setUser } = useContext(AuthContext)
+ 
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm()
 
-  const onSignInPressed = () => {
-    // validate user
-
-    navigation.navigate('Home')
+  const onSignInPressed = async () => {
+    if (loading) {
+      return
+    }
+    setLoading(true)
+    try {
+      const user = await Auth.signIn(email, password)
+      setUser(user)
+      // navigation.navigate('Home')
+    } catch (e) {
+      Alert.alert('Oops', e.message)
+    }
+    setLoading(false)
   }
 
   const onSignUpPressed = () => {
@@ -55,8 +75,8 @@ const SignInScreen = () => {
           icon='lock'
         />
         <CustomButton 
-          text='Sign In' 
-          onPress={onSignInPressed}
+          text={loading ? 'Loading...' : 'Sign In'} 
+          onPress={handleSubmit(onSignInPressed)}
           type='NAVY' 
         />
         <View style={{ marginVertical: 13 }}>
