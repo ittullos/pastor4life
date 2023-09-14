@@ -3,16 +3,17 @@ import React, { useEffect, useState, createContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SignInScreen from '../screens/SignInScreen'
-import SignUpScreen from '../screens/SignUpScreen/SignUpScreen'
+import SignUpScreen from '../screens/SignUpScreen'
 import ConfirmEmailScreen from '../screens/ConfirmEmailScreen'
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen'
 import NewPasswordScreen from '../screens/NewPasswordScreen'
 import HomeScreen from '../screens/HomeScreen'
 import { Auth, Hub } from 'aws-amplify'
+import { AuthContext } from './authContext'
 
 const Stack = createNativeStackNavigator()
 
-export const AuthContext = createContext(null)
+
 
 const Navigation = () => {
   const [user, setUser] = useState(undefined)
@@ -25,19 +26,6 @@ const Navigation = () => {
       setUser(null)
     }
   }
-
-  // useEffect(() => {
-  //   const listener = (data) => {
-  //     console.warn(data)
-  //   }
-  //   const authUser = Hub.listen('auth', listener)
-  //   return () => Hub.remove('auth', listener)
-  // }, [])
-  
-
-  // useEffect(() => {
-  //   checkUser()
-  // }, [])
 
   useEffect(() => {
     checkUser();

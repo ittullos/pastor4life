@@ -10,7 +10,7 @@ import SocialSignInButtons from '../../components/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
 import { Auth } from 'aws-amplify'
 import { useForm, Controller } from 'react-hook-form'
-import { AuthContext } from '../../navigation'
+import { AuthContext } from '../../navigation/authContext'
 
 const SignInScreen = () => {
   const [email, setEmail]           = useState('')

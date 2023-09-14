@@ -9,7 +9,7 @@ import SocialSignInButtons from '../../components/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
 import { Auth } from 'aws-amplify'
 import { useRoute } from '@react-navigation/native'
-import { AuthContext } from '../../navigation'
+import { AuthContext } from '../../navigation/authContext'
 
 const NewPasswordScreen = () => {
   const [code, setCode] = useState('')

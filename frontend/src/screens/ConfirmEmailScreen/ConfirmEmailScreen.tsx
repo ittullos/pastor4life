@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useForm, Controller } from 'react-hook-form'
 import { Auth } from 'aws-amplify'
 import { useRoute } from '@react-navigation/native'
-import { AuthContext } from '../../navigation'
+import { AuthContext } from '../../navigation/authContext'
 
 const ConfirmEmailScreen = () => {
   const [code, setCode] = useState('')
