@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen'
 import PrayerScreen from '../screens/PrayerScreen'
 import DevotionalScreen from '../screens/DevotionalScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import DrawerNavigator from './DrawerNavigator'
 
 const Tab = createBottomTabNavigator()
 
@@ -31,7 +32,6 @@ const BottomTabNavigator = () => {
               name={iconName} 
               size={size} 
               color={color}
-              // style={styles.inputIcon}
             /> 
           )
         },
@@ -54,7 +54,7 @@ const BottomTabNavigator = () => {
       // }}
     >
       <Tab.Screen name="Devotional" component={DevotionalScreen} />
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={DrawerNavigator} />
       <Tab.Screen name="Prayer" component={PrayerScreen} />
     </Tab.Navigator>
   )
