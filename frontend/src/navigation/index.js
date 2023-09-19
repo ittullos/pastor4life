@@ -2,6 +2,7 @@ import { View, Text, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState, createContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import SignInScreen from '../screens/SignInScreen'
 import SignUpScreen from '../screens/SignUpScreen'
 import ConfirmEmailScreen from '../screens/ConfirmEmailScreen'
@@ -10,10 +11,10 @@ import NewPasswordScreen from '../screens/NewPasswordScreen'
 import HomeScreen from '../screens/HomeScreen'
 import { Auth, Hub } from 'aws-amplify'
 import { AuthContext } from './authContext'
+import BottomTabNavigator from './BottomTabNavigator'
 
 const Stack = createNativeStackNavigator()
-
-
+const Tab = createBottomTabNavigator()
 
 const Navigation = () => {
   const [user, setUser] = useState(undefined)
@@ -56,7 +57,7 @@ const Navigation = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           {user ? (
-            <Stack.Screen name='Home' component={HomeScreen} />
+            <Stack.Screen name='BottomTabNavigator' component={BottomTabNavigator} />
           ) : (
             <>
               <Stack.Screen name='SignIn' component={SignInScreen} />
