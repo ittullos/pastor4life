@@ -11,10 +11,14 @@ const HomeScreen = () => {
   const [verse, setVerse]            = useState('')
   const [notation, setNotation]      = useState('')
   const [loading, setLoading]        = useState(true)
+  const [routeStarted, setRouteStarted] = useState(false)
 
   // const signOut = () => {
   //   Auth.signOut()
   // }
+  const handleRouteStart = () => {
+    setRouteStarted(!routeStarted)
+  }
 
   useEffect(() => {
     let ignore = false
@@ -100,7 +104,11 @@ const HomeScreen = () => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <CircularButton title='Start Route'/>
+        <CircularButton 
+          title={routeStarted ? 'Stop Route' : 'Start Route'} 
+          onPress={handleRouteStart} 
+          color={routeStarted ? 'red' : 'green'}
+        />
       </View>
       <View style={{ 
         flex: 4, 
