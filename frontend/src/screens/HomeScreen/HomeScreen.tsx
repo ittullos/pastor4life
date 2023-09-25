@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet,ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify'
 import { useFonts } from 'expo-font'
@@ -9,6 +9,7 @@ import axios from 'axios'
 const HomeScreen = () => {
   const [verse, setVerse]            = useState('')
   const [notation, setNotation]      = useState('')
+  const [loading, setLoading]        = useState(true)
 
   // const signOut = () => {
   //   Auth.signOut()
@@ -28,6 +29,7 @@ const HomeScreen = () => {
       console.log("getVerse: ", res)
       setVerse(res.data.verse)
       setNotation(res.data.notation)
+      setLoading(false) 
     }).catch(err => {
       console.log(err)
     })
@@ -67,6 +69,7 @@ const HomeScreen = () => {
         }}>
           Verse of the Day
         </Text>
+        { loading ? <ActivityIndicator size="large" style={{ transform: [{ scaleX: 2 }, { scaleY: 2 }], paddingTop: 50 }} color='#071448' /> :
         <ScrollView>
           <Text style={{ 
             fontFamily: "GeorgiaItalic", 
@@ -87,6 +90,7 @@ const HomeScreen = () => {
             - {notation}
           </Text>
         </ScrollView>
+        }
       </View>
       <View style={{ 
         flex: 3, 
