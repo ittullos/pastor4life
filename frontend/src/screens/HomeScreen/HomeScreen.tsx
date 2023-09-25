@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import axios from 'axios'
+import CircularButton from '../../components/CircularButton'
 
  
 const HomeScreen = () => {
@@ -95,9 +96,11 @@ const HomeScreen = () => {
       <View style={{ 
         flex: 3, 
         // borderWidth: 3, 
-        borderColor: 'brown' 
+        borderColor: 'brown',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
-
+        <CircularButton title='Start Route'/>
       </View>
       <View style={{ 
         flex: 4, 
@@ -118,6 +121,10 @@ const styles = StyleSheet.create({
     // borderWidth: 4,
     // borderColor: 'red',
   },
+  routeButton: {
+    backgroundColor: 'green',
+  }
 })
+
 
 export default HomeScreen
