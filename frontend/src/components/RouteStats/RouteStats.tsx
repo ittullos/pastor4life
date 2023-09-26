@@ -22,11 +22,11 @@ const RouteStats = (props) => {
     SplashScreen.hideAsync()
   }
 
-  const formatTime = (time) => {
-    dateObj = new Date(time * 1000)
-    hours = dateObj.getUTCHours()
-    minutes = dateObj.getUTCMinutes()
-    seconds = dateObj.getSeconds()
+  const formatTime = (time: any) => {
+    let dateObj = new Date(time * 1000)
+    let hours = dateObj.getUTCHours()
+    let minutes = dateObj.getUTCMinutes()
+    let seconds = dateObj.getSeconds()
     let timeString = ''
 
     if (hours > 0) {
@@ -52,11 +52,11 @@ const RouteStats = (props) => {
         />
       </View>
       <View style={styles.box}>
-        <Text style={{ fontSize: 32 }}>0.00</Text>
-        <Text style={{ fontSize: 25, marginTop: 10 }}>mi</Text>
+        <Text style={{ fontSize: 32, fontWeight: 700 }}>0.00</Text>
+        <Text style={{ fontSize: 25, marginTop: 10, fontWeight: 600 }}>mi</Text>
       </View>
       <View style={styles.box}>
-        <Text style={{ fontSize: 30 }}>0</Text>
+        <Text style={{ fontSize: 30, fontWeight: 600 }}>0</Text>
         <Image 
           source={require('../../../assets/images/praying-hands-icon-black.png')}
           style={{ width: 40, height: 40, marginTop: 15 }}

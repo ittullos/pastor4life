@@ -41,9 +41,6 @@ const HomeScreen = () => {
   useEffect(() => {
     setTimer((endTime - startTime) / 1000)
   }, [endTime])
-  
-  
-  
 
   useEffect(() => {
     let ignore = false
