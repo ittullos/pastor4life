@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import axios from 'axios'
 import CircularButton from '../../components/CircularButton'
+import RouteStats from '../../components/RouteStats'
 
  
 const HomeScreen = () => {
@@ -113,11 +114,10 @@ const HomeScreen = () => {
       <View style={{ 
         flex: 4, 
         // borderWidth: 3, 
-        borderColor: 'brown' 
+        // borderColor: 'brown' 
       }}>
-
+        {routeStarted ? <RouteStats /> : null}
       </View>
-      
     </View>
   )
 }
