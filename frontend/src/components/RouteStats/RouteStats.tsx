@@ -1,11 +1,9 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
-import PrayerIcon from '../../../assets/images/praying-hands-icon-black.png'
 
-
-const RouteStats = () => {
+const RouteStats = (props) => {
 
   const [fontsLoaded] = useFonts({
     "Digital7": require("../../../assets/fonts/digital-7.ttf")
@@ -17,7 +15,6 @@ const RouteStats = () => {
     }
     prepare()
   }, [])
-  
 
   if (!fontsLoaded) {
     return undefined
@@ -25,10 +22,30 @@ const RouteStats = () => {
     SplashScreen.hideAsync()
   }
 
+  const formatTime = (time) => {
+    dateObj = new Date(time * 1000)
+    hours = dateObj.getUTCHours()
+    minutes = dateObj.getUTCMinutes()
+    seconds = dateObj.getSeconds()
+    let timeString = ''
+
+    if (hours > 0) {
+      timeString = hours.toString() + ':' + 
+                   minutes.toString().padStart(2, '0') + ':' + 
+                   seconds.toString().padStart(2, '0')
+    } else {
+      timeString = minutes.toString().padStart(2, '0') + ':' + 
+                   seconds.toString().padStart(2, '0')
+    }
+
+    return (timeString)
+  }
+  
+
   return (
     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', paddingTop: 20 }}>
       <View style={styles.box}>
-        <Text style={{ fontFamily: 'Digital7', fontSize: 37 }}>00:00</Text>
+        <Text style={{ fontFamily: 'Digital7', fontSize: 37 }}>{formatTime(props.timer)}</Text>
         <Image 
           source={require('../../../assets/images/stopwatch.svg.png')}
           style={{ width: 40, height: 40, marginTop: 15 }}

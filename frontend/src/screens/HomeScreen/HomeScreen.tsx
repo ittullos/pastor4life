@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Auth } from 'aws-amplify'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
@@ -13,6 +13,10 @@ const HomeScreen = () => {
   const [notation, setNotation]      = useState('')
   const [loading, setLoading]        = useState(true)
   const [routeStarted, setRouteStarted] = useState(false)
+  const [timer, setTimer] = useState(0)
+  const countRef = useRef(0)
+  const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
 
   // const signOut = () => {
   //   Auth.signOut()
@@ -20,6 +24,26 @@ const HomeScreen = () => {
   const handleRouteStart = () => {
     setRouteStarted(!routeStarted)
   }
+
+  useEffect(() => {
+    if (routeStarted) {
+      setStartTime(Date.now())
+      countRef.current = setInterval(() => {
+        setEndTime(Date.now())
+      }, 1000)
+    }
+    else {
+      clearInterval(countRef.current)
+      setTimer(0)
+    }
+  }, [routeStarted])
+
+  useEffect(() => {
+    setTimer((endTime - startTime) / 1000)
+  }, [endTime])
+  
+  
+  
 
   useEffect(() => {
     let ignore = false
@@ -116,7 +140,7 @@ const HomeScreen = () => {
         // borderWidth: 3, 
         // borderColor: 'brown' 
       }}>
-        {routeStarted ? <RouteStats /> : null}
+        {routeStarted ? <RouteStats timer={timer} /> : null}
       </View>
     </View>
   )
